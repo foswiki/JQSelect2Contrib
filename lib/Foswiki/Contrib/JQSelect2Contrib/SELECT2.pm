@@ -46,13 +46,45 @@ sub new {
     homepage => 'http://ivaynberg.github.com/select2/',
     puburl => '%PUBURLPATH%/%SYSTEMWEB%/JQSelect2Contrib',
     documentation => "$Foswiki::cfg{SystemWebName}.JQSelect2Contrib",
-    javascript => ['jquery.select2.init.js', 'jquery.select2.js'],
+    javascript => ['jquery.select2.js', 'jquery.select2.init.js', ],
     css => ['jquery.select2.css'],
-    dependencies => ['livequery', 'metadata'],
+    dependencies => ['livequery'],
     @_
   ), $class);
 
   return $this;
+}
+
+=begin TML
+
+---++ ClassMethod init( $this )
+
+Initialize this plugin by adding the required static files to the page
+
+=cut
+
+sub init {
+    my $this = shift;
+
+    return unless $this->SUPER::init();
+
+    # open matching localization file if it exists
+    my $session = $Foswiki::Plugins::SESSION;
+    my $langTag = $session->i18n->language();
+    my $messagePath =
+        $Foswiki::cfg{SystemWebName}
+      . '/JQSelect2Contrib/select2_locale_'
+      . $langTag . '.js';
+    my $messageFile = $Foswiki::cfg{PubDir} . '/' . $messagePath;
+    if ( -f $messageFile ) {
+        my $text .=
+"<script type='text/javascript' src='$Foswiki::cfg{PubUrlPath}/$messagePath'></script>\n";
+        Foswiki::Func::addToZone(
+            'script', "JQUERYPLUGIN::SELECT2::LANG",
+            $text,    'JQUERYPLUGIN::SELECT2'
+        );
+    }
+
 }
 
 1;

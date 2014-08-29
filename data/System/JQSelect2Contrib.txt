@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1349362185" format="1.1" reprev="1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1366373896" format="1.1" version="2"}%
 ---+ %TOPIC%
 
 %JQPLUGINS{"select2"
@@ -29,7 +29,7 @@ Add the =jqSelect2= CSS class to a select tag to make it turn into a Select2 wid
 <verbatim class="tml">
 %JQREQUIRE{"select2"}%
 
-<select class='jqSelect2 {placeholder: "Select a burger", width: "element"}'>
+<select class='jqSelect2' data-placeholder='Select a burger' data-width='element'>
 <option>Hamburger</option>
 <option>Hamburger deluxe with gold plating</option>
 <option>Cheeseburger</option>
@@ -40,7 +40,7 @@ Add the =jqSelect2= CSS class to a select tag to make it turn into a Select2 wid
 If Select2 is enabled, you will see the result below:
 
 %JQREQUIRE{"select2"}%
-<select class='jqSelect2 {placeholder: "Select a burger", width: "element"}'>
+<select class='jqSelect2' data-placeholder='Select a burger' data-width='element'>
 <option>Hamburger</option>
 <option>Hamburger deluxe with gold plating</option>
 <option>Cheeseburger</option>
