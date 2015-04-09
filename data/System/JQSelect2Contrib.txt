@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1349362185" format="1.1" reprev="1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1428561401" format="1.1" version="1"}%
 ---+ %TOPIC%
 
 %JQPLUGINS{"select2"
@@ -29,7 +29,7 @@ Add the =jqSelect2= CSS class to a select tag to make it turn into a Select2 wid
 <verbatim class="tml">
 %JQREQUIRE{"select2"}%
 
-<select class='jqSelect2 {placeholder: "Select a burger", width: "element"}'>
+<select class='jqSelect2' data-placeholder='Select a burger' data-width='element'>
 <option>Hamburger</option>
 <option>Hamburger deluxe with gold plating</option>
 <option>Cheeseburger</option>
@@ -40,7 +40,7 @@ Add the =jqSelect2= CSS class to a select tag to make it turn into a Select2 wid
 If Select2 is enabled, you will see the result below:
 
 %JQREQUIRE{"select2"}%
-<select class='jqSelect2 {placeholder: "Select a burger", width: "element"}'>
+<select class='jqSelect2' data-placeholder='Select a burger' data-width='element'>
 <option>Hamburger</option>
 <option>Hamburger deluxe with gold plating</option>
 <option>Cheeseburger</option>
@@ -57,13 +57,13 @@ If Select2 is enabled, you will see the result below:
 -->
 
 |  Author(s): | [[Foswiki:Main.JanKrueger][Jan Krueger]] |
-|  Copyright: | &copy; 2012 Modell Aachen !GmbH, http://modell-aachen.de/ |
+|  Copyright: | &copy; 2012 Modell Aachen !GmbH, http://modell-aachen.de/; &copy; 2012-2015 Foswiki Contributors |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (GNU General Public License)]] |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  04 Oct 2012: | initial release based on Select2 3.2 |
+|  09 Mar 2015: | initial release on foswiki.org (Foswiki:Main/MichaelDaum) |
+|  04 Oct 2012: | initial check-in of select2 3.2 (Foswiki:Main/JanKrueger) |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |
-

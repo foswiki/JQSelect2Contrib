@@ -83,7 +83,7 @@ Version: 3.2 Timestamp: Mon Sep 10 10:38:04 PDT 2012
   display: block;
   position: absolute;
   right: 26px;
-  top: 8px;
+  top: 7px;
   width: 12px;
   height: 12px;
   font-size: 1px;
@@ -221,6 +221,7 @@ Version: 3.2 Timestamp: Mon Sep 10 10:38:04 PDT 2012
 }
 
 
+/*
 .select2-container-active .select2-choice,
 .select2-container-active .select2-choices {
     -webkit-box-shadow: 0 0 5px rgba(0,0,0,.3);
@@ -230,6 +231,7 @@ Version: 3.2 Timestamp: Mon Sep 10 10:38:04 PDT 2012
     border: 1px solid #5897fb;
     outline: none;
 }
+*/
 
 .select2-dropdown-open .select2-choice {
   border: 1px solid #aaa;
@@ -274,6 +276,7 @@ Version: 3.2 Timestamp: Mon Sep 10 10:38:04 PDT 2012
 
 .select2-results ul.select2-result-sub {
   margin: 0 0 0 0;
+  padding:0;
 }
 
 .select2-results ul.select2-result-sub > li .select2-result-label { padding-left: 20px }
@@ -297,6 +300,11 @@ Version: 3.2 Timestamp: Mon Sep 10 10:38:04 PDT 2012
   padding: 3px 7px 4px;
   margin: 0;
   cursor: pointer;
+}
+
+.select2-results .select2-result-label .image-item {
+  background-repeat:no-repeat;
+  padding-left:40px;
 }
 
 .select2-results .select2-highlighted {
@@ -364,12 +372,6 @@ disabled look for already selected choices in the results dropdown
 
 .select2-container-multi .select2-choices {
     background-color: #fff;
-      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
-      background-image: -webkit-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-      background-image: -moz-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-      background-image: -o-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-      background-image: -ms-linear-gradient(top, #eeeeee 1%, #ffffff 15%);
-      background-image: linear-gradient(top, #eeeeee 1%, #ffffff 15%);
       border: 1px solid #aaa;
       margin: 0;
       padding: 0;
@@ -384,6 +386,7 @@ disabled look for already selected choices in the results dropdown
     min-height: 26px;
 }
 
+/*
 .select2-container-multi.select2-container-active .select2-choices {
     -webkit-box-shadow: 0 0 5px rgba(0,0,0,.3);
     -moz-box-shadow   : 0 0 5px rgba(0,0,0,.3);
@@ -392,6 +395,7 @@ disabled look for already selected choices in the results dropdown
     border: 1px solid #5897fb;
     outline: none;
 }
+*/
 .select2-container-multi .select2-choices li {
   float: left;
   list-style: none;
@@ -407,8 +411,6 @@ disabled look for already selected choices in the results dropdown
   background: transparent !important;
   font-family: sans-serif;
   font-size: 100%;
-  height: 15px;
-  padding: 5px;
   margin: 1px 0;
   outline: 0;
   border: 0;
@@ -433,21 +435,14 @@ disabled look for already selected choices in the results dropdown
   -moz-background-clip   : padding;
   -webkit-background-clip: padding-box;
   background-clip        : padding-box;
-  background-color: #e4e4e4;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#eeeeee', GradientType=0 );
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
-  background-image: -webkit-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
-  background-image: -moz-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
-  background-image: -o-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
-  background-image: -ms-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
-  background-image: linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-color: #f7f7f7;
   -webkit-box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0,0,0,0.05);
   -moz-box-shadow   : 0 0 2px #ffffff inset, 0 1px 0 rgba(0,0,0,0.05);
   box-shadow        : 0 0 2px #ffffff inset, 0 1px 0 rgba(0,0,0,0.05);
   color: #333;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #bbb;
   line-height: 13px;
-  padding: 3px 5px 3px 18px;
+  padding: 3px 18px 3px 5px;
   margin: 3px 0 3px 5px;
   position: relative;
   cursor: default;
@@ -463,18 +458,13 @@ disabled look for already selected choices in the results dropdown
   display: block;
   position: absolute;
   right: 3px;
-  top: 4px;
+  top: 3px;
   width: 12px;
   height: 13px;
   font-size: 1px;
   background: url('select2.png') right top no-repeat;
   outline: none;
 }
-
-.select2-container-multi .select2-search-choice-close {
-  left: 3px;
-}
-
 
 .select2-container-multi .select2-choices .select2-search-choice .select2-search-choice-close:hover {
   background-position: right -11px;
