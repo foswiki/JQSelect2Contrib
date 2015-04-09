@@ -6,3 +6,4 @@ $Foswiki::cfg{JQueryPlugin}{Plugins}{Select2}{Module} = 'Foswiki::Contrib::JQSel
 # **BOOLEAN**
 $Foswiki::cfg{JQueryPlugin}{Plugins}{Select2}{Enabled} = 1;
 
+1;

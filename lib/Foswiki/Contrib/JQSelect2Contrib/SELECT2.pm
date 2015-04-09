@@ -1,6 +1,7 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 # 
 # Copyright (C) 2012 Modell Aachen GmbH, http://modell-aachen.de/
+# Copyright (C) 2012-2015 Foswiki Contributors. 
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -48,7 +49,7 @@ sub new {
     documentation => "$Foswiki::cfg{SystemWebName}.JQSelect2Contrib",
     javascript => ['jquery.select2.js', 'jquery.select2.init.js', ],
     css => ['jquery.select2.css'],
-    dependencies => ['livequery'],
+    dependencies => ['livequery', 'metadata'],
     @_
   ), $class);
 
