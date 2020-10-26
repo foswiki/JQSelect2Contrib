@@ -1,3 +1,4 @@
+!noci
 data/System/JQSelect2Contrib.txt 0644
 lib/Foswiki/Contrib/JQSelect2Contrib/Config.spec 0644
 lib/Foswiki/Contrib/JQSelect2Contrib.pm 0644

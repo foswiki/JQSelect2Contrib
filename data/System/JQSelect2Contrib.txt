@@ -55,13 +55,14 @@ If Select2 is enabled, you will see the result below:
 %$DEPENDENCIES%
 
 ---++ Change History
+|  26 Oct 2020: | compatibility with jquery-3 |
 |  02 Sep 2016: | add =.ui-dialog= class to drop-down window for proper base css (Foswiki:Main/MichaelDaum) |
 |  09 Mar 2015: | initial release on foswiki.org (Foswiki:Main/MichaelDaum) |
 |  04 Oct 2012: | initial check-in of select2 3.2 (Foswiki:Main/JanKrueger) |
 
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="Author" title="Author" value="[[Foswiki:Main.JanKrueger][Jan Krueger]]"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2012 Modell Aachen !GmbH, http://modell-aachen.de/; &copy; 2012-2016 Foswiki Contributors"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2012 Modell Aachen !GmbH, http://modell-aachen.de/; &copy; 2012-2020 Foswiki Contributors"}%
 %META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
 %META:FIELD{name="Home" title="Home" value="Foswiki:Extensions/%TOPIC%"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (GNU General Public License)]]"}%

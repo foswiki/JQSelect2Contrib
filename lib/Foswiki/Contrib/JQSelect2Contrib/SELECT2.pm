@@ -1,7 +1,7 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 # 
 # Copyright (C) 2012 Modell Aachen GmbH, http://modell-aachen.de/
-# Copyright (C) 2012-2016 Foswiki Contributors. 
+# Copyright (C) 2012-2020 Foswiki Contributors. 
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -49,7 +49,7 @@ sub new {
     documentation => "$Foswiki::cfg{SystemWebName}.JQSelect2Contrib",
     javascript => ['jquery.select2.js', 'jquery.select2.init.js', ],
     css => ['jquery.select2.css'],
-    dependencies => ['livequery', 'metadata'],
+    dependencies => ['metadata', 'ui'],
     @_
   ), $class);
 
@@ -79,7 +79,7 @@ sub init {
     my $messageFile = $Foswiki::cfg{PubDir} . '/' . $messagePath;
     if ( -f $messageFile ) {
         my $text .=
-"<script type='text/javascript' src='$Foswiki::cfg{PubUrlPath}/$messagePath'></script>\n";
+"<script src='$Foswiki::cfg{PubUrlPath}/$messagePath'></script>\n";
         Foswiki::Func::addToZone(
             'script', "JQUERYPLUGIN::SELECT2::LANG",
             $text,    'JQUERYPLUGIN::SELECT2'

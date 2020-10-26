@@ -162,7 +162,7 @@
         });
     }
 
-    $(document).delegate("body", "mousemove", function (e) {
+    $(document).on("mousemove", "body", function (e) {
         $.data(document, "select2-lastpos", {x: e.pageX, y: e.pageY});
     });
 
@@ -340,10 +340,10 @@
             dataText,
             text = function (item) { return ""+item.text; }; // function used to retrieve the text portion of a data item that is matched against the search
 
-        if (!$.isArray(data)) {
+        if (!Array.isArray(data)) {
             text = data.text;
             // if text is not a function we assume it to be a key name
-            if (!$.isFunction(text)) {
+            if (typeof(text) !== "function") {
               dataText = data.text; // we need to store this in a separate variable because in the next step data gets reset and data.text is no longer available
               text = function (item) { return item[dataText]; };
             }
@@ -386,7 +386,7 @@
     function tags(data) {
         // TODO even for a function we should probably return a wrapper that does the same object/string check as
         // the function for arrays. otherwise only functions that return objects are supported.
-        if ($.isFunction(data)) {
+        if (typeof(data) === "function") {
             return data;
         }
 
@@ -414,13 +414,13 @@
      * @param formatter
      */
     function checkFormatter(formatter, formatterName) {
-        if ($.isFunction(formatter)) return true;
+        if (typeof(formatter) === "function" ) return true;
         if (!formatter) return false;
         throw new Error("formatterName must be a function or a falsy value");
     }
 
     function evaluate(val) {
-        return $.isFunction(val) ? val() : val;
+        return typeof(val) === "function" ? val() : val;
     }
 
     function countResults(results) {
@@ -494,7 +494,7 @@
      * also takes care of clicks on label tags that point to the source element
      */
     $(document).ready(function () {
-        $(document).delegate("body", "mousedown touchend", function (e) {
+        $(document).on("mousedown touchend", "body", function (e) {
             var target = $(e.target).closest("div.select2-container").get(0), attr;
             if (target) {
                 $(document).find("div.select2-container-active").each(function () {
@@ -598,10 +598,10 @@
             this.initContainerWidth();
 
             installFilteredMouseMove(this.results);
-            this.dropdown.delegate(resultsSelector, "mousemove-filtered", this.bind(this.highlightUnderEvent));
+            this.dropdown.on("mousemove-filtered", resultsSelector, this.bind(this.highlightUnderEvent));
 
             installDebouncedScroll(80, this.results);
-            this.dropdown.delegate(resultsSelector, "scroll-debounced", this.bind(this.loadMoreIfNeeded));
+            this.dropdown.on("scroll-debounced", resultsSelector, this.bind(this.loadMoreIfNeeded));
 
             // if jquery.mousewheel plugin is installed we can prevent out-of-bounds scrolling of results via mousewheel
             if ($.fn.mousewheel) {
@@ -622,7 +622,7 @@
             search.bind("focus", function () { search.addClass("select2-focused"); if (search.val() === " ") search.val(""); });
             search.bind("blur", function () { search.removeClass("select2-focused");});
 
-            this.dropdown.delegate(resultsSelector, "mouseup", this.bind(function (e) {
+            this.dropdown.on("mouseup", resultsSelector, this.bind(function (e) {
                 if ($(e.target).closest(".select2-result-selectable:not(.select2-disabled)").length > 0) {
                     this.highlightUnderEvent(e);
                     this.selectHighlighted(e);
@@ -637,7 +637,7 @@
             // dom it will trigger the popup close, which is not what we want
             this.dropdown.bind("click mouseup mousedown", function (e) { e.stopPropagation(); });
 
-            if ($.isFunction(this.opts.initSelection)) {
+            if (typeof(this.opts.initSelection) === "function") {
                 // initialize selection based on the current value of the source element
                 this.initSelection();
 
@@ -788,7 +788,7 @@
                             var data = [];
                             $(splitVal(element.val(), opts.separator)).each(function () {
                                 var id = this, text = this, tags=opts.tags;
-                                if ($.isFunction(tags)) tags=tags();
+                                if (typeof(tags) === "function") tags=tags();
                                 $(tags).each(function() { if (equal(this.id, id)) { text = this.text; return false; } });
                                 data.push({id: id, text: text});
                             });
@@ -1197,7 +1197,7 @@
 
             if (opts.maximumSelectionSize >=1) {
                 data = this.data();
-                if ($.isArray(data) && data.length >= opts.maximumSelectionSize && checkFormatter(opts.formatSelectionTooBig, "formatSelectionTooBig")) {
+                if (Array.isArray(data) && data.length >= opts.maximumSelectionSize && checkFormatter(opts.formatSelectionTooBig, "formatSelectionTooBig")) {
             	    render("<li class='select2-selection-limit'>" + opts.formatSelectionTooBig(opts.maximumSelectionSize) + "</li>");
             	    return;
                 }
@@ -1355,7 +1355,7 @@
                     }
 
                     return null;
-                } else if ($.isFunction(this.opts.width)) {
+                } else if (typeof(this.opts.width) === "function") {
                     return this.opts.width();
                 } else {
                     return this.opts.width;
@@ -1567,7 +1567,7 @@
                 killEvent(e);
             }));
 
-            selection.delegate("abbr", "mousedown", this.bind(function (e) {
+            selection.on("mousedown", "abbr", this.bind(function (e) {
                 if (!this.enabled) return;
                 this.clear();
                 killEvent(e);
@@ -1621,7 +1621,7 @@
                 opts.initSelection = function (element, callback) {
                     var selected = element.find(":selected");
                     // a single select box always has a value, no need to null check 'selected'
-                    if ($.isFunction(callback))
+                    if (typeof(callback) === "function")
                         callback({id: selected.attr("value"), text: selected.text()});
                 };
             }
@@ -1803,7 +1803,7 @@
                         data.push({id: elm.attr("value"), text: elm.text()});
                     });
 
-                    if ($.isFunction(callback))
+                    if (typeof(callback) === "function")
                         callback(data);
                 };
             }
@@ -1887,7 +1887,7 @@
                 e.stopImmediatePropagation();
             }));
 
-            this.container.delegate(selector, "mousedown", this.bind(function (e) {
+            this.container.on("mousedown", selector, this.bind(function (e) {
                 if (!this.enabled) return;
                 if ($(e.target).closest(".select2-search-choice").length > 0) {
                     // clicked inside a select2 search choice, do not open
@@ -1899,7 +1899,7 @@
                 e.preventDefault();
             }));
 
-            this.container.delegate(selector, "focus", this.bind(function () {
+            this.container.on("focus", selector, this.bind(function () {
                 if (!this.enabled) return;
                 this.container.addClass("select2-container-active");
                 this.dropdown.addClass("select2-drop-active");
