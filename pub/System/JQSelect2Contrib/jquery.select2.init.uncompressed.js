@@ -8,7 +8,7 @@ jQuery(function($) {
 
   $(".jqSelect2:not(.inited)").livequery(function() {
     var $this = $(this), 
-        opts = $.extend({}, defaults, $this.metadata(), $this.data());
+        opts = $.extend({}, defaults, $this.data());
 
     $this.addClass("inited").select2(opts);
 

@@ -1,10 +1,12 @@
 FOSWIKI_ROOT?=~/foswiki/core
-TARGET=\
-  jquery.select2.js \
-  jquery.select2.init.js \
-  jquery.select2.css
+TARGET=pkg.js jquery.select2.css
+PKG_SOURCE=jquery.select2.uncompressed.js jquery.select2.init.uncompressed.js
 
 -include $(FOSWIKI_ROOT)/pub/System/JQueryPlugin/Makefile.include
 
 clean:
-	rm $(TARGET) *.gz
+	rm -f $(TARGET) pkg.uncompressed.js *.gz
+
+pkg.uncompressed.js: $(PKG_SOURCE)
+	@echo generating $@
+	@$(CAT) $^ > $@

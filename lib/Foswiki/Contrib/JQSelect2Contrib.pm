@@ -1,7 +1,7 @@
 # Contrib for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
 # Copyright (C) 2012 Modell Aachen GmbH, http://modell-aachen.de/
-# Copyright (C) 2012-2020 Foswiki Contributors. 
+# Copyright (C) 2012-2024 Foswiki Contributors. 
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -18,9 +18,10 @@ package Foswiki::Contrib::JQSelect2Contrib;
 use strict;
 use warnings;
 
-our $VERSION = '2.00';
-our $RELEASE = '26 Oct 2020';
+our $VERSION = '2.10';
+our $RELEASE = '%$RELEASE%';
 our $SHORTDESCRIPTION = 'Select2 jQuery widget for Foswiki';
+our $LICENSECODE = '%$LICENSECODE%';
 our $NO_PREFS_IN_TOPIC = 1;
 
 1;

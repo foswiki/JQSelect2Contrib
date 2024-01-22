@@ -1,7 +1,7 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 # 
 # Copyright (C) 2012 Modell Aachen GmbH, http://modell-aachen.de/
-# Copyright (C) 2012-2020 Foswiki Contributors. 
+# Copyright (C) 2012-2024 Foswiki Contributors. 
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -16,6 +16,7 @@
 
 package Foswiki::Contrib::JQSelect2Contrib::SELECT2;
 use strict;
+use warnings;
 
 use Foswiki::Plugins::JQueryPlugin::Plugin;
 our @ISA = qw( Foswiki::Plugins::JQueryPlugin::Plugin );
@@ -47,9 +48,9 @@ sub new {
     homepage => 'http://ivaynberg.github.com/select2/',
     puburl => '%PUBURLPATH%/%SYSTEMWEB%/JQSelect2Contrib',
     documentation => "$Foswiki::cfg{SystemWebName}.JQSelect2Contrib",
-    javascript => ['jquery.select2.js', 'jquery.select2.init.js', ],
+    javascript => ['pkg.js'],
     css => ['jquery.select2.css'],
-    dependencies => ['metadata', 'ui'],
+    dependencies => ['ui'],
     @_
   ), $class);
 
@@ -78,7 +79,7 @@ sub init {
       . $langTag . '.js';
     my $messageFile = $Foswiki::cfg{PubDir} . '/' . $messagePath;
     if ( -f $messageFile ) {
-        my $text .=
+        my $text =
 "<script src='$Foswiki::cfg{PubUrlPath}/$messagePath'></script>\n";
         Foswiki::Func::addToZone(
             'script', "JQUERYPLUGIN::SELECT2::LANG",
@@ -89,4 +90,3 @@ sub init {
 }
 
 1;
-
