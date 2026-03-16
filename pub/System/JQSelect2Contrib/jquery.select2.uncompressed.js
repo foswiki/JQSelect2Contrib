@@ -148,12 +148,12 @@
 
     function installKeyUpChangeEvent(element) {
         var key="keyup-change-value";
-        element.bind("keydown", function () {
+        element.on("keydown", function () {
             if ($.data(element, key) === undefined) {
                 $.data(element, key, element.val());
             }
         });
-        element.bind("keyup", function () {
+        element.on("keyup", function () {
             var val= $.data(element, key);
             if (val !== undefined && element.val() !== val) {
                 $.removeData(element, key);
@@ -173,7 +173,7 @@
      * the elements under the pointer are scrolled.
      */
     function installFilteredMouseMove(element) {
-	    element.bind("mousemove", function (e) {
+	    element.on("mousemove", function (e) {
             var lastpos = $.data(document, "select2-lastpos");
             if (lastpos === undefined || lastpos.x !== e.pageX || lastpos.y !== e.pageY) {
                 $(e.target).trigger("mousemove-filtered", e);
@@ -218,7 +218,7 @@
 
     function installDebouncedScroll(threshold, element) {
         var notify = debounce(threshold, function (e) { element.trigger("scroll-debounced", e);});
-        element.bind("scroll", function (e) {
+        element.on("scroll", function (e) {
             if (indexOf(e.target, element.get()) >= 0) notify(e);
         });
     }
@@ -512,7 +512,7 @@
             if ("LABEL" === e.target.tagName && attr && attr.length > 0) {
                 target = $("#"+attr);
                 target = target.data("select2");
-                if (target !== undefined) { target.focus(); e.preventDefault();}
+                if (target !== undefined) { target.trigger("focus"); e.preventDefault();}
             }
         });
     });
@@ -618,9 +618,9 @@
             }
 
             installKeyUpChangeEvent(search);
-            search.bind("keyup-change", this.bind(this.updateResults));
-            search.bind("focus", function () { search.addClass("select2-focused"); if (search.val() === " ") search.val(""); });
-            search.bind("blur", function () { search.removeClass("select2-focused");});
+            search.on("keyup-change", this.bind(this.updateResults));
+            search.on("focus", function () { search.addClass("select2-focused"); if (search.val() === " ") search.val(""); });
+            search.on("blur", function () { search.removeClass("select2-focused");});
 
             this.dropdown.on("mouseup", resultsSelector, this.bind(function (e) {
                 if ($(e.target).closest(".select2-result-selectable:not(.select2-disabled)").length > 0) {
@@ -635,7 +635,7 @@
             // trap all mouse events from leaving the dropdown. sometimes there may be a modal that is listening
             // for mouse events outside of itself so it can close itself. since the dropdown is now outside the select2's
             // dom it will trigger the popup close, which is not what we want
-            this.dropdown.bind("click mouseup mousedown", function (e) { e.stopPropagation(); });
+            this.dropdown.on("click mouseup mousedown", function (e) { e.stopPropagation(); });
 
             if (typeof(this.opts.initSelection) === "function") {
                 // initialize selection based on the current value of the source element
@@ -657,7 +657,7 @@
                 select2.dropdown.remove();
                 select2.opts.element
                     .removeData("select2")
-                    .unbind(".select2")
+                    .off(".select2")
                     .show();
             }
         },
@@ -810,7 +810,7 @@
          */
         // abstract
         monitorSource: function () {
-            this.opts.element.bind("change.select2", this.bind(function (e) {
+            this.opts.element.on("change.select2", this.bind(function (e) {
                 if (this.opts.element.data("select2-change-triggered") !== true) {
                     this.initSelection();
                 }
@@ -832,7 +832,7 @@
 
             // some validation frameworks ignore the change event and listen instead to keyup, click for selects
             // so here we trigger the click event manually
-            this.opts.element.click();
+            this.opts.element.trigger("click");
 
             // ValidationEngine ignorea the change event and listens instead to blur
             // so here we trigger the blur event manually if so desired
@@ -963,19 +963,19 @@
                 scroll = "scroll." + cid, resize = "resize." + cid;
 
             this.container.parents().each(function() {
-                $(this).bind(scroll, function() {
+                $(this).on(scroll, function() {
                     var s2 = $(selector);
                     if (s2.length == 0) {
-                        $(this).unbind(scroll);
+                        $(this).off(scroll);
                     }
                     s2.select2("close");
                 });
             });
 
-            $(window).bind(resize, function() {
+            $(window).on(resize, function() {
                 var s2 = $(selector);
                 if (s2.length == 0) {
-                    $(window).unbind(resize);
+                    $(window).off(resize);
                 }
                 s2.select2("close");
             });
@@ -1009,9 +1009,9 @@
             var self = this;
 
             this.container.parents().each(function() {
-                $(this).unbind("scroll." + self.containerId);
+                $(this).off("scroll." + self.containerId);
             });
-            $(window).unbind("resize." + this.containerId);
+            $(window).off("resize." + this.containerId);
 
             this.clearDropdownAlignmentPreference();
 
@@ -1284,14 +1284,14 @@
         focusSearch: function () {
             // need to do it here as well as in timeout so it works in IE
             this.search.show();
-            this.search.focus();
+            this.search.trigger("focus");
 
             /* we do this in a timeout so that current event processing can complete before this code is executed.
              this makes sure the search field is focussed even if the current event would blur it */
             window.setTimeout(this.bind(function () {
                 // reset the value so IE places the cursor at the end of the input box
                 this.search.show();
-                this.search.focus();
+                this.search.trigger("focus");
                 this.search.val(this.search.val());
             }), 10);
         },
@@ -1408,7 +1408,7 @@
         // single
         focus: function () {
             this.close();
-            this.selection.focus();
+            this.selection.trigger("focus");
         },
 
         // single
@@ -1419,7 +1419,7 @@
         // single
         cancel: function () {
             this.parent.cancel.apply(this, arguments);
-            this.selection.focus();
+            this.selection.trigger("focus");
         },
 
         // single
@@ -1432,7 +1432,7 @@
 
             this.selection = selection = container.find(".select2-choice");
 
-            this.search.bind("keydown", this.bind(function (e) {
+            this.search.on("keydown", this.bind(function (e) {
                 if (!this.enabled) return;
 
                 if (e.which === KEY.PAGE_UP || e.which === KEY.PAGE_DOWN) {
@@ -1477,20 +1477,20 @@
                 }
             }));
 
-            this.search.bind("focus", this.bind(function() {
+            this.search.on("focus", this.bind(function() {
                 this.selection.attr("tabIndex", "-1");
             }));
-            this.search.bind("blur", this.bind(function() {
+            this.search.on("blur", this.bind(function() {
                 if (!this.opened()) this.container.removeClass("select2-container-active");
                 window.setTimeout(this.bind(function() { this.selection.attr("tabIndex", this.opts.element.attr("tabIndex")); }), 10);
             }));
 
-            selection.bind("mousedown", this.bind(function (e) {
+            selection.on("mousedown", this.bind(function (e) {
                 clickingInside = true;
 
                 if (this.opened()) {
                     this.close();
-                    this.selection.focus();
+                    this.selection.trigger("focus");
                 } else if (this.enabled) {
                     this.open();
                 }
@@ -1498,22 +1498,22 @@
                 clickingInside = false;
             }));
 
-            dropdown.bind("mousedown", this.bind(function() { this.search.focus(); }));
+            dropdown.on("mousedown", this.bind(function() { this.search.trigger("focus"); }));
 
-            selection.bind("focus", this.bind(function() {
+            selection.on("focus", this.bind(function() {
                 this.container.addClass("select2-container-active");
                 // hide the search so the tab key does not focus on it
                 this.search.attr("tabIndex", "-1");
             }));
 
-            selection.bind("blur", this.bind(function() {
+            selection.on("blur", this.bind(function() {
                 if (!this.opened()) {
                     this.container.removeClass("select2-container-active");
                 }
                 window.setTimeout(this.bind(function() { this.search.attr("tabIndex", this.opts.element.attr("tabIndex")); }), 10);
             }));
 
-            selection.bind("keydown", this.bind(function(e) {
+            selection.on("keydown", this.bind(function(e) {
                 if (!this.enabled) return;
 
                 if (e.which === KEY.PAGE_UP || e.which === KEY.PAGE_DOWN) {
@@ -1560,7 +1560,7 @@
                 }
 
                 // focus the field before calling val so the cursor ends up after the value instead of before
-                this.search.focus();
+                this.search.trigger("focus");
                 this.search.val(keyWritten);
 
                 // prevent event propagation so it doesnt replay on the now focussed search field and result in double key entry
@@ -1573,12 +1573,12 @@
                 killEvent(e);
                 this.close();
                 this.triggerChange();
-                this.selection.focus();
+                this.selection.trigger("focus");
             }));
 
             this.setPlaceholder();
 
-            this.search.bind("focus", this.bind(function() {
+            this.search.on("focus", this.bind(function() {
                 this.container.addClass("select2-container-active");
             }));
         },
@@ -1682,7 +1682,7 @@
             this.opts.element.val(this.id(data));
             this.updateSelection(data);
             this.close();
-            this.selection.focus();
+            this.selection.trigger("focus");
 
             if (!equal(old, this.id(data))) { this.triggerChange(); }
         },
@@ -1819,7 +1819,7 @@
             this.searchContainer = this.container.find(".select2-search-field");
             this.selection = selection = this.container.find(selector);
 
-            this.search.bind("keydown", this.bind(function (e) {
+            this.search.on("keydown", this.bind(function (e) {
                 if (!this.enabled) return;
 
                 if (e.which === KEY.BACKSPACE && this.search.val() === "") {
@@ -1878,9 +1878,9 @@
                 }
             }));
 
-            this.search.bind("keyup", this.bind(this.resizeSearch));
+            this.search.on("keyup", this.bind(this.resizeSearch));
 
-            this.search.bind("blur", this.bind(function(e) {
+            this.search.on("blur", this.bind(function(e) {
                 this.container.removeClass("select2-container-active");
                 this.search.removeClass("select2-focused");
                 this.clearSearch();
@@ -1993,7 +1993,7 @@
         // multi
         focus: function () {
             this.close();
-            this.search.focus();
+            this.search.trigger("focus");
         },
 
         // multi

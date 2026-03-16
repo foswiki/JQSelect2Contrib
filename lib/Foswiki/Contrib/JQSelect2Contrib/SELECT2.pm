@@ -1,7 +1,7 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 # 
 # Copyright (C) 2012 Modell Aachen GmbH, http://modell-aachen.de/
-# Copyright (C) 2012-2024 Foswiki Contributors. 
+# Copyright (C) 2012-2026 Foswiki Contributors. 
 # 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License

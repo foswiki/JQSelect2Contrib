@@ -7,13 +7,21 @@ jQuery(function($) {
   };
 
   $(".jqSelect2:not(.inited)").livequery(function() {
-    var $this = $(this), 
-        opts = $.extend({}, defaults, $this.data());
+    var $elem = $(this), 
+        opts = $.extend({}, defaults, $elem.data());
 
-    $this.addClass("inited").select2(opts);
+    $elem.addClass("inited").select2(opts);
+
+    $elem.on("reset", function() {
+      $elem.find(":selected:first").each(function() {
+        var $option = $(this),
+          val = $option.val() || $option.attr("value") || $option.text();
+        $elem.select2("val", val);
+      });
+    });
 
     if (opts.sortable) {
-      $this.select2("container").find("ul.select2-choices").sortable({
+      $elem.select2("container").find("ul.select2-choices").sortable({
         containment: 'parent',
         items: "> .select2-search-choice",
         start: function() { $input.select2('onSortStart'); },
